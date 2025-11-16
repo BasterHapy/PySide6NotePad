@@ -44,6 +44,7 @@ class NotePad(QMainWindow):
     def setup_event_bind(self):
         """设置事件绑定"""
         # 标题相关
+        # 更新*
         self.plain_text_edit.modificationChanged.connect(self.update_title)
 
         # 文本编辑相关
@@ -85,18 +86,13 @@ class NotePad(QMainWindow):
 
 
 
-    def update_title(self,changed,file_path=None):
+    def update_title(self,changed):
         """更新标题"""
-        if file_path:
-            if changed:
-                self.setWindowTitle(f"{STAR}{file_path}{BASE_NAME}")
-            else:
-                self.setWindowTitle(f"{file_path}{BASE_NAME}")
+
+        if changed:
+            self.setWindowTitle(f"{STAR}{DEFAILT_NAME}{BASE_NAME}")
         else:
-            if changed:
-                self.setWindowTitle(f"{STAR}{DEFAILT_NAME}{BASE_NAME}")
-            else:
-                self.setWindowTitle(f"{DEFAILT_NAME}{BASE_NAME}")
+            self.setWindowTitle(f"{DEFAILT_NAME}{BASE_NAME}")
         
     def new_window(self):
         """新窗口"""
