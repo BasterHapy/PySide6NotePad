@@ -36,17 +36,13 @@ class PlainTextEdit(QPlainTextEdit):
         self.file_path,_ = QFileDialog.getOpenFileName(self,"打开",HOME_PATH,"(*.txt);;(*.*)")
 
         if self.file_path:  
-            # 文件路径不为空 更新全局变量 并读取文件
-            signal_bus.modification_changed.emit(self.get_modification_changed,self.file_path.rsplit("/")[-1])
+
             with open(self.file_path,"r") as file:
                 self.setPlainText(file.read())
 
     def save_file(self):
         """保存文件"""
         if self.file_path:
-            
-            # 文件路径不为空 更新全局变量 并读取文件
-            signal_bus.modification_changed.emit(self.get_modification_changed,self.file_path.rsplit("/")[-1])
 
             with open(self.file_path,"w") as file:
                 # 保存时 重置文本改变状态
@@ -66,10 +62,7 @@ class PlainTextEdit(QPlainTextEdit):
         file_path,_ = QFileDialog.getSaveFileName(self,"另存为",HOME_PATH,"(*.txt);;(*.*)")
 
         if file_path:
-            
-            # 文件路径不为空 更新全局变量 并读取文件
-            signal_bus.modification_changed.emit(self.get_modification_changed,self.file_path.rsplit("/")[-1])
-
+    
             with open(file_path,"w") as file:
 
                 # 保存时 重置文本改变状态

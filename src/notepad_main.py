@@ -44,7 +44,7 @@ class NotePad(QMainWindow):
     def setup_event_bind(self):
         """设置事件绑定"""
         # 标题相关
-        signal_bus.modification_changed.connect(self.update_title)
+        self.plain_text_edit.modificationChanged.connect(self.update_title)
 
         # 文本编辑相关
         ## 文件菜单
