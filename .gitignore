@@ -1,5 +1,7 @@
 # 忽略文件
 test.py
+bad_code.py
+more.py
 
 # 忽略文件夹
 pynotepad_venv/
