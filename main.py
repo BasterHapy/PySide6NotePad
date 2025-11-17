@@ -1,5 +1,5 @@
 import sys
-from PySide6.QtWidgets import QApplication,QStyleFactory
+from PySide6.QtWidgets import QApplication
 from src.notepad_main import NotePad
 from PySide6.QtGui import QFont
 import resource_rc
@@ -12,7 +12,7 @@ def main():
     # 设置全局字体
     app.setFont(QFont("DejaVu Sans Mono", 11))
     ## 设置主题为支持明暗 Linux 默认支持
-    app.setStyle(QStyleFactory.create("Fusion"))
+    app.setStyle("Fusion")
 
     # 实例化记事本
     notepad = NotePad()

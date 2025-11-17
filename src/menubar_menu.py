@@ -72,15 +72,10 @@ class EditMenu(QMenu):
         self.clipbaord_ = QGuiApplication.clipboard() # 建议来源于 QClipboard
 
     def set_event_bind(self):
-        """设置必应搜索"""
+        """设置时间绑定"""
         # 设置状态 粘贴
 
         self.clipbaord_.dataChanged.connect(self.reset_paste_state)
-
-        # 查找 查找下一个 查找上一个
-        # self.find_.triggered.connect(lambda: self.show_find_dialog(plain_text_edit))
-        # self.find_next.triggered.connect(lambda: self.find_next_text(plain_text_edit))
-        # self.find_previous.triggered.connect(lambda: self.find_previous_text(plain_text_edit))
 
     def reset_paste_state(self):
         """重新设置粘贴状态
