@@ -79,7 +79,8 @@ class NotePad(QMainWindow):
         self.menu_bar.edit_menu.date_.triggered.connect(self.plain_text_edit.insert_date_time)
         self.menu_bar.edit_menu.search.triggered.connect(self.plain_text_edit.bing_search)
 
-        ## 查找 上一个 下一个 有待更新
+        ## 查找 上一个 下一个 
+        self.menu_bar.edit_menu.find_.triggered.connect(self.plain_text_edit.find_text_dialog.show)
         self.menu_bar.edit_menu.find_next.triggered.connect(self.plain_text_edit.find_next)
         self.menu_bar.edit_menu.find_previous.triggered.connect(self.plain_text_edit.find_previous)
 
@@ -110,6 +111,7 @@ class NotePad(QMainWindow):
                 self.setWindowTitle(f"{file_name}{BASE_NAME}")
             else:
                 self.setWindowTitle(f"{DEFAULT_NAME}{BASE_NAME}")        
+
     def new_window(self):
         """新窗口"""
         self.note_pad = NotePad()
