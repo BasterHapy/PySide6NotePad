@@ -25,11 +25,12 @@ class PlainTextEdit(QPlainTextEdit):
 
     def show_msg_save(self):
         """是否显示保存文件消息框"""
-        if self.document().isModified():
+        if self.get_modification_changed():
             msg_save = MessageSaveFile(self)
             msg_save.show()
         else:
-            pass
+            self.file_path = ""
+            self.clear()
 
     def open_file(self):
         """打开文件"""
@@ -46,7 +47,7 @@ class PlainTextEdit(QPlainTextEdit):
 
             with open(self.file_path,"w") as file:
                 # 保存时 重置文本改变状态
-                self.document().setModified(False)
+                self.set_modification_changed(False)
                 file.write(self.toPlainText())
         else:
             # 另存为
@@ -141,7 +142,10 @@ class PlainTextEdit(QPlainTextEdit):
 
     def get_modification_changed(self):
         """获取修改状态"""
-        return self.document().isModified()
+        self.document().isModified()
+    def set_modification_changed(self,changed:bool):
+        """设置修改状态"""
+        return self.document().setModified(changed)
 
 
 
