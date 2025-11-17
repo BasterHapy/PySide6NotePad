@@ -4,7 +4,7 @@ from PySide6.QtPrintSupport import QPrintDialog,QPrinter
 from PySide6.QtCore import Qt,QDateTime
 from src.messagebox_save_file import MessageSaveFile
 from src.custome_signal_bus import signal_bus
-from src.global_variable import DEFAILT_NAME,HOME_PATH
+from src.global_variable import HOME_PATH
 
 class PlainTextEdit(QPlainTextEdit):
     """纯文本编辑
@@ -48,10 +48,6 @@ class PlainTextEdit(QPlainTextEdit):
                 # 保存时 重置文本改变状态
                 self.document().setModified(False)
                 file.write(self.toPlainText())
-
-            # 每次写入以后 撤销与重做状态 为Fasle
-            self.setUndoRedoEnabled(False)
-
         else:
             # 另存为
             self.save_file_as()

@@ -3,7 +3,7 @@ from src.mainwindow_plain_text_edit import PlainTextEdit
 from src.mainwindow_menu_bar import MenuBar
 from src.mainwindow_status_bar import StatusBar
 from src.custome_signal_bus import signal_bus
-from src.global_variable import BASE_NAME,DEFAILT_NAME,STAR                
+from src.global_variable import BASE_NAME,DEFAULT_NAME,STAR                
 
 class NotePad(QMainWindow):
     """记事本主窗口
@@ -18,7 +18,7 @@ class NotePad(QMainWindow):
     def setup_ui(self):
         """设置界面"""
         # 窗口设置
-        self.setWindowTitle(f"{DEFAILT_NAME}{BASE_NAME}")
+        self.setWindowTitle(f"{DEFAULT_NAME}{BASE_NAME}")
         self.resize(800, 500)
 
         # 菜单栏
@@ -44,7 +44,7 @@ class NotePad(QMainWindow):
     def setup_event_bind(self):
         """设置事件绑定"""
         # 标题相关
-        # 更新*
+        ## 更新*
         self.plain_text_edit.modificationChanged.connect(self.update_title)
 
         # 文本编辑相关
@@ -84,16 +84,23 @@ class NotePad(QMainWindow):
         self.menu_bar.view_menu.zoom_back_action.triggered.connect(self.plain_text_edit.reset_default_font_size)
         self.menu_bar.view_menu.show_status_bar.triggered.connect(self.status_bar.show_or_hide)
 
+    def update_title(self,changed: bool):
+        """更新标题*
 
-
-    def update_title(self,changed):
-        """更新标题"""
-
+        :param changed: 文本是否改变
+        """
         if changed:
-            self.setWindowTitle(f"{STAR}{DEFAILT_NAME}{BASE_NAME}")
+            if self.plain_text_edit.file_path:
+                file_name = self.plain_text_edit.file_path.rsplit("/")[-1]
+                self.setWindowTitle(f"{STAR}{file_name}{BASE_NAME}")
+            else:
+                self.setWindowTitle(f"{STAR}{DEFAULT_NAME}{BASE_NAME}")
         else:
-            self.setWindowTitle(f"{DEFAILT_NAME}{BASE_NAME}")
-        
+            if self.plain_text_edit.file_path:
+                file_name = self.plain_text_edit.file_path.rsplit("/")[-1]
+                self.setWindowTitle(f"{file_name}{BASE_NAME}")
+            else:
+                self.setWindowTitle(f"{DEFAULT_NAME}{BASE_NAME}")        
     def new_window(self):
         """新窗口"""
         self.note_pad = NotePad()
