@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QPlainTextEdit,QFontDialog,QFileDialog
-from PySide6.QtGui import QFont,QWheelEvent,QDesktopServices
+from PySide6.QtGui import QFont,QWheelEvent,QDesktopServices,QTextDocument
 from PySide6.QtPrintSupport import QPrintDialog,QPrinter
 from PySide6.QtCore import Qt,QDateTime
 from src.messagebox_save_file import MessageSaveFile
@@ -14,6 +14,7 @@ class PlainTextEdit(QPlainTextEdit):
     def __init__(self):
         """初始化"""
         super().__init__()
+        self.set_event_bind()
         self.file_path = ""
 
     def has_text(self):
@@ -22,6 +23,10 @@ class PlainTextEdit(QPlainTextEdit):
             signal_bus.has_text.emit(True)
         else:
             signal_bus.has_text.emit(False)
+
+    def set_event_bind(self):
+        """设置事件绑定"""
+        self.textChanged.connect(self.has_text)
 
     def show_msg_save(self):
         """是否显示保存文件消息框"""
@@ -91,6 +96,16 @@ class PlainTextEdit(QPlainTextEdit):
         currentDateTime = QDateTime.currentDateTime()
         formattedTime = currentDateTime.toString("hh:mm yyyy/MM/dd")
         self.insertPlainText(formattedTime)
+
+    def find_next(self):
+        """查找下一个"""
+        search_text = self.get_select_text()
+        self.find(search_text)
+
+    def find_previous(self):
+        """查找上一个"""
+        search_text = self.get_select_text()
+        self.find(search_text,QTextDocument.FindFlag.FindBackward)
 
     def zoom_out(self,range=1):
         """缩小方法"""
