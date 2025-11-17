@@ -40,6 +40,7 @@ class EditMenu(QMenu):
         """设置菜单项"""
         self.setTitle("编辑(&E)",)
         self.undo = self.addAction("撤销(&U)",QKeySequence.StandardKey.Undo)
+        self.redo = self.addAction("重做(&B)",QKeySequence.StandardKey.Redo)
         self.addSeparator()
         self.cut =  self.addAction("剪切(&T)",QKeySequence.StandardKey.Cut)
         self.copy = self.addAction("复制(&C)",QKeySequence.StandardKey.Copy)

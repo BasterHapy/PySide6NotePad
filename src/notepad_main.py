@@ -59,12 +59,14 @@ class NotePad(QMainWindow):
 
         ## 编辑菜单
         self.plain_text_edit.undoAvailable.connect(self.menu_bar.edit_menu.undo.setEnabled)
+        self.plain_text_edit.redoAvailable.connect(self.menu_bar.edit_menu.redo.setEnabled)
         self.plain_text_edit.copyAvailable.connect(self.menu_bar.edit_menu.copy.setEnabled)
         self.plain_text_edit.copyAvailable.connect(self.menu_bar.edit_menu.copy.setEnabled)
         self.plain_text_edit.copyAvailable.connect(self.menu_bar.edit_menu.delete.setEnabled)
         self.plain_text_edit.copyAvailable.connect(self.menu_bar.edit_menu.search.setEnabled)
 
-        self.menu_bar.edit_menu.undo.triggered.connect(self.plain_text_edit.redo)
+        self.menu_bar.edit_menu.undo.triggered.connect(self.plain_text_edit.undo)
+        self.menu_bar.edit_menu.redo.triggered.connect(self.plain_text_edit.redo)
         self.menu_bar.edit_menu.cut.triggered.connect(self.plain_text_edit.cut)
         self.menu_bar.edit_menu.copy.triggered.connect(self.plain_text_edit.copy)
         self.menu_bar.edit_menu.paste.triggered.connect(self.plain_text_edit.paste)
