@@ -34,7 +34,7 @@ class EditMenu(QMenu):
     def __init__(self,parent=None):
         super().__init__(parent)
         self.setup_ui()
-        # self.set_event_bind()
+        self.set_event_bind()
     
     def setup_ui(self):
         """设置菜单项"""
@@ -72,16 +72,10 @@ class EditMenu(QMenu):
         self.clipbaord_ = QGuiApplication.clipboard() # 建议来源于 QClipboard
 
     def set_event_bind(self):
-        """设置必应搜索
-
-        :param plain_text_edit: PySide6 PlainTextEdit
-        """
-        # 设置状态 粘贴、查找、查找下一个、查找上一个
+        """设置必应搜索"""
+        # 设置状态 粘贴
 
         self.clipbaord_.dataChanged.connect(self.reset_paste_state)
-        signal_bus.has_text.connect(self.find_.setEnabled)
-        signal_bus.has_text.connect(self.find_next.setEnabled)
-        signal_bus.has_text.connect(self.find_previous.setEnabled)
 
         # 查找 查找下一个 查找上一个
         # self.find_.triggered.connect(lambda: self.show_find_dialog(plain_text_edit))
