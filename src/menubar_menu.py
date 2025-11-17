@@ -1,4 +1,3 @@
-from turtle import st
 from PySide6.QtWidgets import QMenu
 from PySide6.QtGui import QKeySequence,QDesktopServices,QGuiApplication
 from src.messagebox_about_notepad import MessageAboutNote

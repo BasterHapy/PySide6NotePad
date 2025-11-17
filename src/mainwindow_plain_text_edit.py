@@ -5,6 +5,7 @@ from PySide6.QtCore import Qt,QDateTime
 from src.messagebox_save_file import MessageSaveFile
 from src.custome_signal_bus import signal_bus
 from src.global_variable import HOME_PATH
+from src.custome_find_dialog import FindTextDialog
 
 class PlainTextEdit(QPlainTextEdit):
     """纯文本编辑
@@ -14,6 +15,7 @@ class PlainTextEdit(QPlainTextEdit):
     def __init__(self):
         """初始化"""
         super().__init__()
+        self.find_text_dialog = FindTextDialog(self)
         self.set_event_bind()
         self.file_path = ""
 
@@ -27,6 +29,7 @@ class PlainTextEdit(QPlainTextEdit):
     def set_event_bind(self):
         """设置事件绑定"""
         self.textChanged.connect(self.has_text)
+        self.find_text_dialog.find_next_btn.clicked.connect(self.auto_find_next)
 
     def show_msg_save(self):
         """是否显示保存文件消息框"""
@@ -97,15 +100,71 @@ class PlainTextEdit(QPlainTextEdit):
         formattedTime = currentDateTime.toString("hh:mm yyyy/MM/dd")
         self.insertPlainText(formattedTime)
 
+    def auto_find_next(self):
+        """自动查找下一个
+        """
+        find_dialog = self.find_text_dialog
+        find_text = find_dialog.find_le.text()
+
+        # 先使用二分法 判断是否 点击向上或向下
+        if find_dialog.down_rbtn.isChecked():
+            self.find(find_text)
+
+            # 再判断是否勾选 忽略大小写
+            if find_dialog.case_check.isChecked():
+                flag = QTextDocument.FindFlag.FindCaseSensitively
+                self.find(find_text,flag)
+        else:
+            # 向上查找
+            flag = QTextDocument.FindFlag.FindBackward
+            self.find(find_text,flag)
+
+            # 再判断是否勾选 忽略大小写
+            if find_dialog.case_check.isChecked():
+                flags = QTextDocument.FindFlag.FindCaseSensitively | flag
+                self.find(find_text,flags)
+
     def find_next(self):
         """查找下一个"""
         search_text = self.get_select_text()
-        self.find(search_text)
+
+        find_dialog = self.find_text_dialog
+
+        # 判断是否勾选 忽略大小写
+        if find_dialog.case_check.isChecked():
+            flag = QTextDocument.FindFlag.FindCaseSensitively
+            self.find(search_text,flag)
+
+        # 判断是否勾选 循环
+        elif find_dialog.range_check.isChecked():
+            pass
+        
+        # 没有选中 默认
+        else:
+            self.find(search_text)
 
     def find_previous(self):
         """查找上一个"""
         search_text = self.get_select_text()
-        self.find(search_text,QTextDocument.FindFlag.FindBackward)
+
+        find_dialog = self.find_text_dialog
+
+        # findflags 忽略大小写 上一个
+        case_sen = QTextDocument.FindFlag.FindCaseSensitively
+        backward = QTextDocument.FindFlag.FindBackward
+        
+
+        # 再判断是否勾选 忽略大小写
+        if find_dialog.case_check.isChecked():
+            self.find(search_text,case_sen|backward)
+
+        # 判断是否勾选 循环
+        elif find_dialog.range_check.isChecked():
+            pass
+        
+        # 没有选中 默认
+        else:
+            self.find(search_text,backward)
 
     def zoom_out(self,range=1):
         """缩小方法"""
