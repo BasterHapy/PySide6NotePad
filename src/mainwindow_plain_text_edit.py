@@ -136,13 +136,14 @@ class PlainTextEdit(QPlainTextEdit):
 
             # 向下
             else:
-                self.zoomOut()
+                self.zoom_out()
         else:
             return super().wheelEvent(e)
 
     def get_modification_changed(self):
         """获取修改状态"""
         self.document().isModified()
+        
     def set_modification_changed(self,changed:bool):
         """设置修改状态"""
         return self.document().setModified(changed)
