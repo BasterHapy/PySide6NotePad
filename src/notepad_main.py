@@ -64,6 +64,10 @@ class NotePad(QMainWindow):
         self.plain_text_edit.copyAvailable.connect(self.menu_bar.edit_menu.copy.setEnabled)
         self.plain_text_edit.copyAvailable.connect(self.menu_bar.edit_menu.delete.setEnabled)
         self.plain_text_edit.copyAvailable.connect(self.menu_bar.edit_menu.search.setEnabled)
+        signal_bus.has_text.connect(self.menu_bar.edit_menu.find_.setEnabled)
+        signal_bus.has_text.connect(self.menu_bar.edit_menu.find_next.setEnabled)
+        signal_bus.has_text.connect(self.menu_bar.edit_menu.find_previous.setEnabled)
+
 
         self.menu_bar.edit_menu.undo.triggered.connect(self.plain_text_edit.undo)
         self.menu_bar.edit_menu.redo.triggered.connect(self.plain_text_edit.redo)
@@ -74,7 +78,10 @@ class NotePad(QMainWindow):
         self.menu_bar.edit_menu.select_all.triggered.connect(self.plain_text_edit.selectAll)
         self.menu_bar.edit_menu.date_.triggered.connect(self.plain_text_edit.insert_date_time)
         self.menu_bar.edit_menu.search.triggered.connect(self.plain_text_edit.bing_search)
-        # 查找 上一个 下一个 有待更新
+
+        ## 查找 上一个 下一个 有待更新
+        self.menu_bar.edit_menu.find_next.triggered.connect(self.plain_text_edit.find_next)
+        self.menu_bar.edit_menu.find_previous.triggered.connect(self.plain_text_edit.find_previous)
 
         ## 格式菜单
         self.menu_bar.format_menu.auto_line_warp.toggled.connect(self.plain_text_edit.reset_line_warp_mode)
