@@ -60,13 +60,7 @@ class PlainTextEdit(QPlainTextEdit):
         if file_path:
     
             with open(file_path,"w") as file:
-
-                # 保存时 重置文本改变状态
-                self.document().setModified(False)
                 file.write(self.toPlainText())
-
-            # 每次写入以后 撤销与重做状态 为Fasle
-            self.setUndoRedoEnabled(False)
 
             # 将 文件路径 局部变量 更新为全局属性
             self.file_path = file_path
