@@ -1,4 +1,5 @@
-from PySide6.QtWidgets import QPlainTextEdit,QFontDialog,QFileDialog
+from pydoc import text
+from PySide6.QtWidgets import QPlainTextEdit,QFontDialog,QFileDialog,QMessageBox
 from PySide6.QtGui import QFont,QWheelEvent,QDesktopServices,QTextDocument
 from PySide6.QtPrintSupport import QPrintDialog,QPrinter
 from PySide6.QtCore import Qt,QDateTime
@@ -108,21 +109,28 @@ class PlainTextEdit(QPlainTextEdit):
 
         # 先使用二分法 判断是否 点击向上或向下
         if find_dialog.down_rbtn.isChecked():
-            self.find(find_text)
+            
+            # 获取查找状态 
+            find_status = self.find(find_text)
+            self.handel_next_range(find_status,find_text)
 
             # 再判断是否勾选 忽略大小写
             if find_dialog.case_check.isChecked():
                 flag = QTextDocument.FindFlag.FindCaseSensitively
-                self.find(find_text,flag)
+                find_status = self.find(find_text,flag)
+                self.handel_next_range(find_status,find_text)
+                
         else:
             # 向上查找
             flag = QTextDocument.FindFlag.FindBackward
-            self.find(find_text,flag)
+            find_status = self.find(find_text,flag)
+            self.handel_previous_range(find_status,find_text)            
 
             # 再判断是否勾选 忽略大小写
             if find_dialog.case_check.isChecked():
                 flags = QTextDocument.FindFlag.FindCaseSensitively | flag
-                self.find(find_text,flags)
+                find_status = self.find(find_text,flags)
+                self.handel_previous_range(find_status,find_text)
 
     def find_next(self):
         """查找下一个"""
@@ -135,15 +143,17 @@ class PlainTextEdit(QPlainTextEdit):
         # 判断是否勾选 忽略大小写
         if find_dialog.case_check.isChecked():
             flag = QTextDocument.FindFlag.FindCaseSensitively
-            self.find(search_text,flag)
-
-        # 判断是否勾选 循环
-        elif find_dialog.range_check.isChecked():
-            pass
+            find_status = self.find(search_text,flag)
+            
+            # 处理向下循环
+            self.handel_next_range(find_status,search_text)
         
         # 没有选中 默认
         else:
-            self.find(search_text)
+            find_status = self.find(search_text)
+
+            # 处理向上循环
+            self.handel_next_range(find_status,search_text)
 
     def find_previous(self):
         """查找上一个"""
@@ -160,15 +170,46 @@ class PlainTextEdit(QPlainTextEdit):
 
         # 再判断是否勾选 忽略大小写
         if find_dialog.case_check.isChecked():
-            self.find(search_text,case_sen|backward)
 
-        # 判断是否勾选 循环
-        elif find_dialog.range_check.isChecked():
-            pass
+            find_status = self.find(search_text,case_sen|backward)
+
+            # 处理向上循环
+            self.handel_previous_range(find_status,search_text)
+
         
         # 没有选中 默认
         else:
-            self.find(search_text,backward)
+            find_status = self.find(search_text,backward)
+
+            # 处理向上循环
+            self.handel_previous_range(find_status,search_text)
+
+    def handel_next_range(self, find_status: bool,search_text: str):    
+        """查找下一个重置光标"""
+        if find_status is False:
+    
+            # 查看是否勾选 循环状态 => 勾选则 重置光标为Start => 不勾选则弹出消息对话框
+            if self.find_text_dialog.range_check.isChecked():
+                self.moveCursor(self.textCursor().MoveOperation.Start)
+            else:
+                self.show_find_info_message(search_text)
+
+    def handel_previous_range(self, find_status: bool,search_text: str):    
+        """查找上一个重置光标"""
+        if find_status is False:
+    
+            # 查看是否勾选 循环状态 => 勾选则 重置光标为End => 不勾选则弹出消息对话框
+            if self.find_text_dialog.range_check.isChecked():
+                self.moveCursor(self.textCursor().MoveOperation.End)
+            else:
+                self.show_find_info_message(search_text)
+            
+    def show_find_info_message(self,search_text: str):
+        """显示查找信息消息框
+
+        :param search_text: 查找文本
+        """
+        QMessageBox.information(None,"记事本",f'找不到"{search_text}"',QMessageBox.StandardButton.Yes)
 
     def zoom_out(self,range=1):
         """缩小方法"""
