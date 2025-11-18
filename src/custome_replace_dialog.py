@@ -9,6 +9,7 @@ class ReplaceDialog(QDialog):
         """构造函数"""
         super().__init__(parent)
         self.setup_ui()
+        self.setup_event_bind()
 
     def setup_ui(self):
         """设置用户界面"""
@@ -62,23 +63,23 @@ class ReplaceDialog(QDialog):
         find_btns_hbox = QHBoxLayout()
 
         ### 查找下一个与取消按钮
-        find_next_btn = QPushButton("查找下一个(&F)")
-        cancel_btn = QPushButton("取消")
+        self.find_next_btn = QPushButton("查找下一个(&F)")
+        self.cancel_btn = QPushButton("取消")
 
         ## 布局添加控件
-        find_btns_hbox.addWidget(find_next_btn)
-        find_btns_hbox.addWidget(cancel_btn)
+        find_btns_hbox.addWidget(self.find_next_btn)
+        find_btns_hbox.addWidget(self.cancel_btn)
 
         ## 勾选框们 使用垂直布局
         check_boxs_vbox = QVBoxLayout()
 
         ### 区分大小写 与 循环 勾选框
-        case_sensitive_box = QCheckBox("区分大小写(&C)")
-        range_box = QCheckBox("循环(&R)")
+        self.case_sensitive_box = QCheckBox("区分大小写(&C)")
+        self.range_box = QCheckBox("循环(&R)")
 
         ## 布局添加控件
-        check_boxs_vbox.addWidget(case_sensitive_box)
-        check_boxs_vbox.addWidget(range_box)
+        check_boxs_vbox.addWidget(self.case_sensitive_box)
+        check_boxs_vbox.addWidget(self.range_box)
 
         # 全局布局添加布局
         global_vbox.addLayout(content_hbox)
@@ -87,7 +88,9 @@ class ReplaceDialog(QDialog):
         global_vbox.addLayout(find_btns_hbox)
         global_vbox.addLayout(check_boxs_vbox)
 
-        
+    def setup_event_bind(self):
+        """设置事件绑定"""        
+        self.cancel_btn.clicked.connect(self.close)
         
 
 
