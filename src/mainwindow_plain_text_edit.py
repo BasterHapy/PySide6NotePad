@@ -157,7 +157,7 @@ class PlainTextEdit(QPlainTextEdit):
         else:
             find_status = self.find(search_text)
 
-            # 处理向上循环
+            # 处理向下循环
             self.handel_next_range(find_status,search_text)
 
     def find_previous(self):
