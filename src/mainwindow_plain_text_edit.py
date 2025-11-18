@@ -126,9 +126,11 @@ class PlainTextEdit(QPlainTextEdit):
 
     def find_next(self):
         """查找下一个"""
-        search_text = self.get_select_text()
-
+        # 将 查找对话框 定义为局部变量 方便调用
         find_dialog = self.find_text_dialog
+
+        # 获取查找对话框 里的 查找内容
+        search_text = find_dialog.find_le.text()
 
         # 判断是否勾选 忽略大小写
         if find_dialog.case_check.isChecked():
@@ -145,9 +147,11 @@ class PlainTextEdit(QPlainTextEdit):
 
     def find_previous(self):
         """查找上一个"""
-        search_text = self.get_select_text()
-
+        # 将 查找对话框 定义为局部变量 方便调用
         find_dialog = self.find_text_dialog
+
+        # 获取查找对话框 里的 查找内容
+        search_text = find_dialog.find_le.text()
 
         # findflags 忽略大小写 上一个
         case_sen = QTextDocument.FindFlag.FindCaseSensitively
