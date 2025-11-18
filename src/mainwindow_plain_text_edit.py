@@ -1,4 +1,3 @@
-from pydoc import text
 from PySide6.QtWidgets import QPlainTextEdit,QFontDialog,QFileDialog,QMessageBox
 from PySide6.QtGui import QFont,QWheelEvent,QDesktopServices,QTextDocument
 from PySide6.QtPrintSupport import QPrintDialog,QPrinter
