@@ -50,13 +50,13 @@ class EditMenu(QMenu):
         self.find_ = self.addAction("查找(&F)",QKeySequence.StandardKey.Find)
         self.find_next = self.addAction("查找下一个(&N)",QKeySequence.StandardKey.FindNext)
         self.find_previous =  self.addAction("查找上一个(&V)",QKeySequence.StandardKey.FindPrevious)
-        replace =  self.addAction("替换(&R)",QKeySequence.StandardKey.Replace)
+        self.replace_ =  self.addAction("替换(&R)",QKeySequence.StandardKey.Replace)
         goto =self.addAction("转到(&G)","F3")
         self.addSeparator()
         self.select_all = self.addAction("全选(&A)",QKeySequence.StandardKey.SelectAll)
         self.date_ = self.addAction("时间/日期(&D)","F5")
 
-        # 默认状态  撤销、剪切、复制、粘贴、删除 、搜索、查找、查找上一个、查找下一个 不可用
+        # 默认状态  撤销、剪切、复制、粘贴、删除 、搜索、查找、查找上一个、查找下一个、转到 不可用
         self.undo.setEnabled(False)
         self.cut.setEnabled(False)
         self.copy.setEnabled(False)
@@ -66,6 +66,7 @@ class EditMenu(QMenu):
         self.find_.setEnabled(False)
         self.find_next.setEnabled(False)
         self.find_previous.setEnabled(False)
+        goto.setEnabled(False)
 
         # 初始化剪贴板
         self.clipbaord_ = QGuiApplication.clipboard() # 建议来源于 QClipboard
