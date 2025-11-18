@@ -12,7 +12,8 @@ class FindTextDialog(QDialog):
         :param parent: 父窗口, defaults to None
         """
         super().__init__(parent)
-        self.setup_ui()    
+        self.setup_ui()
+        self.setup_event_bind()    
 
     def setup_ui(self):
         """设置界面
@@ -67,7 +68,7 @@ class FindTextDialog(QDialog):
         global_vbox.addWidget(self.find_next_btn)
         global_vbox.addWidget(self.cancel_btn)
 
-    def set_event_bind(self):
+    def setup_event_bind(self):
         """设置事件绑定
         """
         # 按钮选中绑定事件
