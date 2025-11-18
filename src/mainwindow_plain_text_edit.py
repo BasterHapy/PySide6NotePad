@@ -169,7 +169,6 @@ class PlainTextEdit(QPlainTextEdit):
 
         # 再判断是否勾选 忽略大小写
         if find_dialog.case_check.isChecked():
-
             find_status = self.find(search_text,case_sen|backward)
 
             # 处理向上循环

@@ -13,6 +13,8 @@ def main():
     app.setFont(QFont("DejaVu Sans Mono", 11))
     ## 设置主题为支持明暗 Linux 默认支持
     app.setStyle("Fusion")
+    ## 设置消息对话框 按钮为中文
+    app.setStyleSheet('QMessageBox QPushButton[text="&Yes"] {qproperty-text: "是";}')
 
     # 实例化记事本
     notepad = NotePad()
