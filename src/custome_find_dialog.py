@@ -1,7 +1,5 @@
 from PySide6.QtWidgets import (QDialog,QLayout,QVBoxLayout,QHBoxLayout,QLabel,QLineEdit,QGroupBox,
                                QRadioButton,QCheckBox,QPushButton)
-from PySide6.QtCore import Qt
-from PySide6.QtGui import QTextDocument
 
 class FindTextDialog(QDialog):
     """查找(文本)对话框
