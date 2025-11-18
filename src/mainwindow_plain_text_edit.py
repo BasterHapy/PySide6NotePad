@@ -208,7 +208,7 @@ class PlainTextEdit(QPlainTextEdit):
 
         :param search_text: 查找文本
         """
-        QMessageBox.information(None,"记事本",f'找不到"{search_text}"',QMessageBox.StandardButton.Yes)
+        QMessageBox.information(self.find_text_dialog,"记事本",f'找不到"{search_text}"',QMessageBox.StandardButton.Yes)
 
     def zoom_out(self,range=1):
         """缩小方法"""
