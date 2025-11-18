@@ -25,14 +25,14 @@ class ReplaceDialog(QDialog):
 
         ### 查找内容 标签以及输入框
         find_content_label =  QLabel("查找内容(&N):")
-        find_content_ledit = QLineEdit()
+        self.find_content_ledit = QLineEdit()
 
         ### 设置伙伴关系 
-        find_content_label.setBuddy(find_content_ledit)
+        find_content_label.setBuddy(self.find_content_ledit)
 
         ## 布局添加控件
         content_hbox.addWidget(find_content_label)
-        content_hbox.addWidget(find_content_ledit)
+        content_hbox.addWidget(self.find_content_ledit)
 
         ## 替换为 使用水平布局
         replace_hbox = QHBoxLayout()
