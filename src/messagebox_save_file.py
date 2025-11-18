@@ -1,9 +1,9 @@
 from PySide6.QtWidgets import QMessageBox
 
 class MessageSaveFile(QMessageBox):
-    """保存文件对话框
+    """保存文件消息框
 
-    :param QMessageBox: PySide6 消息盒子
+    :param QMessageBox: PySide6 消息框
     """
     def __init__(self,parent=None):
         """初始化"""
