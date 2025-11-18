@@ -6,6 +6,7 @@ from src.messagebox_save_file import MessageSaveFile
 from src.custome_signal_bus import signal_bus
 from src.global_variable import HOME_PATH
 from src.custome_find_dialog import FindTextDialog
+from src.custome_replace_dialog import ReplaceDialog
 
 class PlainTextEdit(QPlainTextEdit):
     """纯文本编辑
@@ -15,7 +16,11 @@ class PlainTextEdit(QPlainTextEdit):
     def __init__(self):
         """初始化"""
         super().__init__()
+
+        #  实例化 查找与替换对话框
         self.find_text_dialog = FindTextDialog(self)
+        self.replace_dialog = ReplaceDialog(self)
+        
         self.set_event_bind()
         self.file_path = ""
 
@@ -30,6 +35,7 @@ class PlainTextEdit(QPlainTextEdit):
         """设置事件绑定"""
         self.textChanged.connect(self.has_text)
         self.find_text_dialog.find_next_btn.clicked.connect(self.auto_find_next)
+        self.replace_dialog.find_next_btn.clicked.connect(self.replace_find_next)
 
     def show_msg_save(self):
         """是否显示保存文件消息框"""
@@ -182,6 +188,29 @@ class PlainTextEdit(QPlainTextEdit):
             # 处理向上循环
             self.handel_previous_range(find_status,search_text)
 
+    def replace_find_next(self):
+        """替换对话框中查找下一个"""
+        # 将 查找对话框 定义为局部变量 方便调用
+        replace_dialog = self.replace_dialog
+
+        # 获取查找对话框 里的 查找内容
+        search_text = replace_dialog.find_content_ledit
+
+        # 判断是否勾选 忽略大小写
+        if replace_dialog.case_sensitive_box.isChecked():
+            flag = QTextDocument.FindFlag.FindCaseSensitively
+            find_status = self.find(search_text,flag)
+            
+            # 处理向下循环
+            self.handel_next_range(find_status,search_text)
+        
+        # 没有选中 默认
+        else:
+            find_status = self.find(search_text)
+
+            # 处理向上循环
+            self.handel_next_range(find_status,search_text)
+
     def handel_next_range(self, find_status: bool,search_text: str):    
         """查找下一个重置光标"""
         if find_status is False:
@@ -209,6 +238,19 @@ class PlainTextEdit(QPlainTextEdit):
         """
         QMessageBox.information(self.find_text_dialog,"记事本",f'找不到"{search_text}"',QMessageBox.StandardButton.Yes)
 
+    def show_replace_dialog(self):
+        """显示替换对话框"""
+
+        # 将 查找对话框 替换为 局部变量
+        find_dialog = self.find_text_dialog 
+        
+        # 同步 查找对话框 忽略大小写、循环 勾选状态
+        self.replace_dialog.case_sensitive_box.setChecked(find_dialog.case_check.isChecked())
+        self.replace_dialog.range_box.setChecked(find_dialog.range_check.isChecked())
+
+        # 显示替换对话框
+        self.replace_dialog.show()
+        
     def zoom_out(self,range=1):
         """缩小方法"""
         if self.font().pointSize() <= 11 :

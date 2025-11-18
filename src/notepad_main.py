@@ -84,6 +84,9 @@ class NotePad(QMainWindow):
         self.menu_bar.edit_menu.find_next.triggered.connect(self.plain_text_edit.find_next)
         self.menu_bar.edit_menu.find_previous.triggered.connect(self.plain_text_edit.find_previous)
 
+        # 替换
+        self.menu_bar.edit_menu.replace_.triggered.connect(self.plain_text_edit.show_replace_dialog)
+        
         ## 格式菜单
         self.menu_bar.format_menu.auto_line_warp.toggled.connect(self.plain_text_edit.reset_line_warp_mode)
         self.menu_bar.format_menu.font_page.triggered.connect(self.plain_text_edit.get_font_dialog)
