@@ -194,7 +194,7 @@ class PlainTextEdit(QPlainTextEdit):
         replace_dialog = self.replace_dialog
 
         # 获取查找对话框 里的 查找内容
-        search_text = replace_dialog.find_content_ledit
+        search_text = replace_dialog.find_content_ledit.text()
 
         # 判断是否勾选 忽略大小写
         if replace_dialog.case_sensitive_box.isChecked():
