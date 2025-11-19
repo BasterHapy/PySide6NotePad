@@ -36,6 +36,7 @@ class PlainTextEdit(QPlainTextEdit):
         self.textChanged.connect(self.has_text)
         self.find_text_dialog.find_next_btn.clicked.connect(self.auto_find_next)
         self.replace_dialog.find_next_btn.clicked.connect(self.replace_find_next)
+        self.replace_dialog.replace_btn.clicked.connect(self.replace_once)
 
     def show_msg_save(self):
         """是否显示保存文件消息框"""
@@ -147,11 +148,13 @@ class PlainTextEdit(QPlainTextEdit):
                 find_status = self.find(find_text,flags)
                 self.handel_previous_range(find_status,find_text)
 
-    def __find_next(self,check_status: bool,range_check_status: bool,search_text: str):
+    def __find_next(self,check_status: bool,range_check_status: bool,search_text: str) -> bool:
         """查找下一个
 
-        :param check_status: 按钮勾选状态
+        :param check_status: 勾选状态
+        :param range_check_status: 循环勾选状态
         :param search_text: 查找文本
+        :return: 查找状态
         """
 
         # 判断是否勾选 忽略大小写
@@ -161,6 +164,8 @@ class PlainTextEdit(QPlainTextEdit):
             
             # 处理向下循环
             self.handel_next_range(find_status,search_text)
+
+            return find_status
         
         # 没有选中 默认
         else:
@@ -168,6 +173,8 @@ class PlainTextEdit(QPlainTextEdit):
 
             # 处理向下循环
             self.handel_next_range(find_status,range_check_status,search_text)
+
+            return find_status
 
     def find_previous(self):
         """查找上一个"""
@@ -212,7 +219,10 @@ class PlainTextEdit(QPlainTextEdit):
         self.__find_next(case_check_status,range_check_status,find_text)
 
     def replace_find_next(self):
-        """替换对话框中查找下一个"""
+        """替换对话框中查找下一个
+
+        :return: 获取查找状态
+        """
 
         # 将 查找对话框 定义为局部变量
         replace_dialog = self.replace_dialog
@@ -223,7 +233,22 @@ class PlainTextEdit(QPlainTextEdit):
         find_text = replace_dialog.find_content_ledit.text()
 
         # 查找下一个
-        self.__find_next(case_check_status,range_check_status,find_text)
+        find_status = self.__find_next(case_check_status,range_check_status,find_text)
+
+        return find_status
+
+    def replace_once(self):
+        """单个替换"""
+
+        # 查找下一个 然后 替换
+        find_status = self.replace_find_next()
+
+        # 如果查找不为空 则 替换
+        if find_status:
+            
+            # 获取 替换文本
+            replace_text = self.replace_dialog.find_replace_ledit.text()
+            self.textCursor().insertText(replace_text)
 
     def handel_next_range(self, find_status: bool,range_check_staus: bool,search_text: str):    
         """查找下一个重置光标"""
