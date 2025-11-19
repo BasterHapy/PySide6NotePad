@@ -81,7 +81,7 @@ class NotePad(QMainWindow):
 
         ## 查找 上一个 下一个 
         self.menu_bar.edit_menu.find_.triggered.connect(self.plain_text_edit.find_text_dialog.show)
-        self.menu_bar.edit_menu.find_next.triggered.connect(self.plain_text_edit.find_next)
+        self.menu_bar.edit_menu.find_next.triggered.connect(self.plain_text_edit.text_find_next)
         self.menu_bar.edit_menu.find_previous.triggered.connect(self.plain_text_edit.find_previous)
 
         # 替换
