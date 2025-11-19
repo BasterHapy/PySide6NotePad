@@ -36,6 +36,7 @@ class PlainTextEdit(QPlainTextEdit):
         self.textChanged.connect(self.has_text)
         self.find_text_dialog.find_next_btn.clicked.connect(self.auto_find_next)
         self.replace_dialog.find_next_btn.clicked.connect(self.replace_find_next)
+        self.replace_dialog.all_replace_btn.clicked.connect(self.handel_replace_all)
 
     def show_msg_save(self):
         """是否显示保存文件消息框"""
@@ -109,44 +110,53 @@ class PlainTextEdit(QPlainTextEdit):
     def auto_find_next(self):
         """自动查找下一个
         """
+        # 将 属性变为 局部变量
         find_dialog = self.find_text_dialog
+
+        # 查找文本 下一个 忽略大小写 循环 状态
         find_text = find_dialog.find_le.text()
+        down_btn_status = find_dialog.down_rbtn.isChecked()
+        case_check_status = find_dialog.case_check.isChecked()
+        range_check_status = find_dialog.range_check.isChecked()
+
+        # 查找 上一个 忽略大小写 标签
+        backward_flag = QTextDocument.FindFlag.FindBackward
+        case_flag = QTextDocument.FindFlag.FindCaseSensitively
 
         # 先使用二分法 判断是否 点击向上或向下
-        if find_dialog.down_rbtn.isChecked():
+        if down_btn_status:
             
-            # 获取查找状态 
+            # 获取查找状态 处理向下循环
             find_status = self.find(find_text)
-            self.handel_next_range(find_status,find_text)
+            self.handel_next_range(find_status,range_check_status,find_text)
 
-            # 再判断是否勾选 忽略大小写
-            if find_dialog.case_check.isChecked():
-                flag = QTextDocument.FindFlag.FindCaseSensitively
-                find_status = self.find(find_text,flag)
-                self.handel_next_range(find_status,find_text)
+            # 判断是否勾选 忽略大小写 处理向下循环
+            if case_check_status:
+                find_status = self.find(find_text,case_flag)
+                self.handel_next_range(find_status,range_check_status,find_text)
                 
         else:
-            # 向上查找
-            flag = QTextDocument.FindFlag.FindBackward
-            find_status = self.find(find_text,flag)
+            # 获取查找状态 处理向上循环
+            find_status = self.find(find_text,backward_flag)
             self.handel_previous_range(find_status,find_text)            
 
-            # 再判断是否勾选 忽略大小写
-            if find_dialog.case_check.isChecked():
-                flags = QTextDocument.FindFlag.FindCaseSensitively | flag
+            # 判断是否勾选 忽略大小写 处理向上循环
+            if case_check_status:
+                flags = backward_flag | case_flag
+
+                # 获取查找状态 处理向上循环
                 find_status = self.find(find_text,flags)
                 self.handel_previous_range(find_status,find_text)
 
-    def find_next(self):
-        """查找下一个"""
-        # 将 查找对话框 定义为局部变量 方便调用
-        find_dialog = self.find_text_dialog
+    def __find_next(self,check_status: bool,range_check_status: bool,search_text: str):
+        """查找下一个
 
-        # 获取查找对话框 里的 查找内容
-        search_text = find_dialog.find_le.text()
+        :param check_status: 按钮勾选状态
+        :param search_text: 查找文本
+        """
 
         # 判断是否勾选 忽略大小写
-        if find_dialog.case_check.isChecked():
+        if check_status:
             flag = QTextDocument.FindFlag.FindCaseSensitively
             find_status = self.find(search_text,flag)
             
@@ -158,7 +168,7 @@ class PlainTextEdit(QPlainTextEdit):
             find_status = self.find(search_text)
 
             # 处理向下循环
-            self.handel_next_range(find_status,search_text)
+            self.handel_next_range(find_status,range_check_status,search_text)
 
     def find_previous(self):
         """查找上一个"""
@@ -188,35 +198,40 @@ class PlainTextEdit(QPlainTextEdit):
             # 处理向上循环
             self.handel_previous_range(find_status,search_text)
 
+    def text_find_next(self):
+        """查找对话框获取下一个"""
+
+        # 将全局属性定义为局部变量
+        find_dialog = self.find_text_dialog
+        
+        # 获取 忽略大小写与循环 勾选状态 查找文本
+        case_check_status = find_dialog.case_check.isChecked()
+        range_check_status = find_dialog.range_check.isChecked()
+        find_text = find_dialog.find_le.text()
+
+        # 查找下一个
+        self.__find_next(case_check_status,range_check_status,find_text)
+
     def replace_find_next(self):
         """替换对话框中查找下一个"""
-        # 将 查找对话框 定义为局部变量 方便调用
+
+        # 将 查找对话框 定义为局部变量
         replace_dialog = self.replace_dialog
 
-        # 获取查找对话框 里的 查找内容
-        search_text = replace_dialog.find_content_ledit.text()
+        # 获取 忽略大小写与循环 勾选状态 查找文本
+        case_check_status = replace_dialog.case_sensitive_box.isChecked()
+        range_check_status = replace_dialog.range_box.isChecked()
+        find_text = replace_dialog.find_content_ledit.text()
 
-        # 判断是否勾选 忽略大小写
-        if replace_dialog.case_sensitive_box.isChecked():
-            flag = QTextDocument.FindFlag.FindCaseSensitively
-            find_status = self.find(search_text,flag)
-            
-            # 处理向下循环
-            self.handel_next_range(find_status,search_text)
-        
-        # 没有选中 默认
-        else:
-            find_status = self.find(search_text)
+        # 查找下一个
+        self.__find_next(case_check_status,range_check_status,find_text)
 
-            # 处理向上循环
-            self.handel_next_range(find_status,search_text)
-
-    def handel_next_range(self, find_status: bool,search_text: str):    
+    def handel_next_range(self, find_status: bool,range_check_staus: bool,search_text: str):    
         """查找下一个重置光标"""
         if find_status is False:
     
             # 查看是否勾选 循环状态 => 勾选则 重置光标为Start => 不勾选则弹出消息对话框
-            if self.find_text_dialog.range_check.isChecked():
+            if range_check_staus:
                 self.moveCursor(self.textCursor().MoveOperation.Start)
             else:
                 self.show_find_info_message(search_text)
@@ -236,7 +251,7 @@ class PlainTextEdit(QPlainTextEdit):
 
         :param search_text: 查找文本
         """
-        QMessageBox.information(self.find_text_dialog,"记事本",f'找不到"{search_text}"',QMessageBox.StandardButton.Yes)
+        QMessageBox.information(self.find_text_dialog or self.replace_dialog,"记事本",f'找不到"{search_text}"',QMessageBox.StandardButton.Yes)
 
     def show_replace_dialog(self):
         """显示替换对话框"""
@@ -250,7 +265,7 @@ class PlainTextEdit(QPlainTextEdit):
 
         # 显示替换对话框
         self.replace_dialog.show()
-        
+
     def zoom_out(self,range=1):
         """缩小方法"""
         if self.font().pointSize() <= 11 :
