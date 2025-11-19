@@ -36,7 +36,6 @@ class PlainTextEdit(QPlainTextEdit):
         self.textChanged.connect(self.has_text)
         self.find_text_dialog.find_next_btn.clicked.connect(self.auto_find_next)
         self.replace_dialog.find_next_btn.clicked.connect(self.replace_find_next)
-        self.replace_dialog.all_replace_btn.clicked.connect(self.handel_replace_all)
 
     def show_msg_save(self):
         """是否显示保存文件消息框"""
