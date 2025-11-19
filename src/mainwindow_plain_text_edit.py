@@ -291,7 +291,6 @@ class PlainTextEdit(QPlainTextEdit):
             replace_text = self.replace_dialog.find_replace_ledit.text()
             text_cursor.insertText(replace_text)
             
-
     def handel_next_range(self, find_status: bool,range_check_staus: bool,search_text: str):    
         """查找下一个重置光标"""
         if find_status is False:
