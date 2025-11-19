@@ -37,6 +37,7 @@ class PlainTextEdit(QPlainTextEdit):
         self.find_text_dialog.find_next_btn.clicked.connect(self.auto_find_next)
         self.replace_dialog.find_next_btn.clicked.connect(self.replace_find_next)
         self.replace_dialog.replace_btn.clicked.connect(self.replace_once)
+        self.replace_dialog.all_replace_btn.clicked.connect(self.replace_all)
 
     def show_msg_save(self):
         """是否显示保存文件消息框"""
@@ -249,6 +250,47 @@ class PlainTextEdit(QPlainTextEdit):
             # 获取 替换文本
             replace_text = self.replace_dialog.find_replace_ledit.text()
             self.textCursor().insertText(replace_text)
+
+    def __get_all_cursors(self):
+        """获取所有文本光标"""
+        # 文本光标 列表
+        cursors = []
+
+        # 查找文本
+        find_text = self.replace_dialog.find_content_ledit.text()
+
+        if find_text:
+
+            # 获取 部件的 文本文档
+            doc = self.document()
+
+            # 获取文本光标
+            text_cursor = self.textCursor()
+
+            # 死循环
+            while True:
+
+                # 根据 文本和光标 来返回 查找到的文本光标
+                text_cursor = doc.find(find_text, text_cursor)
+
+                # 如果光标 为空 跳出
+                if text_cursor.isNull():
+                    break
+
+                # 将查找到的光标  添加到 光标列表里
+                cursors.append(text_cursor)
+
+        return cursors
+
+    def replace_all(self):
+        """替换所有"""
+        text_cursors = self.__get_all_cursors()
+        for text_cursor in text_cursors:
+
+        # 获取替换文本
+            replace_text = self.replace_dialog.find_replace_ledit.text()
+            text_cursor.insertText(replace_text)
+            
 
     def handel_next_range(self, find_status: bool,range_check_staus: bool,search_text: str):    
         """查找下一个重置光标"""
