@@ -39,25 +39,25 @@ class ReplaceDialog(QDialog):
 
         ### 替换为 标签以及输入框
         find_replace_label =  QLabel("替换为(&P):")
-        find_replace_ledit = QLineEdit()
+        self.find_replace_ledit = QLineEdit()
 
         ### 设置伙伴关系
-        find_replace_label.setBuddy(find_replace_ledit)
+        find_replace_label.setBuddy(self.find_replace_ledit)
 
         ## 布局添加控件
         replace_hbox.addWidget(find_replace_label)
-        replace_hbox.addWidget(find_replace_ledit)
+        replace_hbox.addWidget(self.find_replace_ledit)
 
         ## 替换按钮们使用水平布局
         replace_btns_hbox = QHBoxLayout()
 
         ### 替换与全部替换按钮
-        replace_btn = QPushButton("替换(&R)")
-        all_replace_btn = QPushButton("全部替换(&A)")
+        self.replace_btn = QPushButton("替换(&R)")
+        self.all_replace_btn = QPushButton("全部替换(&A)")
 
         ## 布局添加控件
-        replace_btns_hbox.addWidget(replace_btn)
-        replace_btns_hbox.addWidget(all_replace_btn)
+        replace_btns_hbox.addWidget(self.replace_btn)
+        replace_btns_hbox.addWidget(self.all_replace_btn)
 
         ## 查找和取消 使用水平布局
         find_btns_hbox = QHBoxLayout()
