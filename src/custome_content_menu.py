@@ -22,7 +22,7 @@ class ContentMenu(QMenu):
         self.select_all =  self.addAction("全选(&A)")
         self.addSeparator()
         self.bing_search_action = self.addAction("使用Bing搜索(&B)")
-        
+        self.addSeparator()
 
         # 从右边到左的阅读顺序
         self.read_right_left = self.addAction("从右到左的阅读顺序")
