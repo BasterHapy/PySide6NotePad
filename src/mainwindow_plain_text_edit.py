@@ -1,12 +1,13 @@
 from PySide6.QtWidgets import QPlainTextEdit,QFontDialog,QFileDialog,QMessageBox
 from PySide6.QtGui import QFont,QWheelEvent,QDesktopServices,QTextDocument
 from PySide6.QtPrintSupport import QPrintDialog,QPrinter
-from PySide6.QtCore import Qt,QDateTime
+from PySide6.QtCore import Qt,QDateTime,QPoint
 from src.messagebox_save_file import MessageSaveFile
 from src.custome_signal_bus import signal_bus
-from src.global_variable import HOME_PATH
+from src.global_variable import HOME_PATH,GLOBAL_CLIPBOARD
 from src.custome_find_dialog import FindTextDialog
 from src.custome_replace_dialog import ReplaceDialog
+from src.custome_content_menu import ContentMenu
 
 class PlainTextEdit(QPlainTextEdit):
     """纯文本编辑
@@ -20,6 +21,12 @@ class PlainTextEdit(QPlainTextEdit):
         #  实例化 查找与替换对话框
         self.find_text_dialog = FindTextDialog(self)
         self.replace_dialog = ReplaceDialog(self)
+
+        #  初始化 上下文 菜单 使用自定义菜单
+        self.__init_content_menu_event()
+
+        # 实例化 自定义上下文菜单
+        self.custome_content_menu = ContentMenu(self)
         
         self.set_event_bind()
         self.file_path = ""
@@ -33,8 +40,35 @@ class PlainTextEdit(QPlainTextEdit):
 
     def set_event_bind(self):
         """设置事件绑定"""
+
+        # 文本改变信号 触发时 发送 是否有文本的信号
         self.textChanged.connect(self.has_text)
+
+        # 设置 撤销、剪切、复制、删除 、全选、从右到左的阅读顺序 、使用Bing搜索 
+
+        ## 行为是否可用
+        self.undoAvailable.connect(self.custome_content_menu.undo_action.setEnabled)
+        self.copyAvailable.connect(self.custome_content_menu.cut_action.setEnabled)
+        self.copyAvailable.connect(self.custome_content_menu.copy_action.setEnabled)
+        self.copyAvailable.connect(self.custome_content_menu.delete_action.setEnabled)
+        signal_bus.has_text.connect(self.custome_content_menu.select_all.setEnabled)
+
+        ## 设置粘贴是否可用
+        GLOBAL_CLIPBOARD().dataChanged.connect(self.reset_content_paste_state)
+
+        ## 行为触发
+        self.custome_content_menu.undo_action.triggered.connect(self.undo)
+        self.custome_content_menu.cut_action.triggered.connect(self.cut)
+        self.custome_content_menu.copy_action.triggered.connect(self.copy)
+        self.custome_content_menu.paste_action.triggered.connect(self.paste)
+        self.custome_content_menu.delete_action.triggered.connect(self.clear)
+        self.custome_content_menu.select_all.triggered.connect(self.selectAll)
+        self.custome_content_menu.bing_search_action.triggered.connect(self.bing_search)
+
+        # 查找对话框 查找下一个
         self.find_text_dialog.find_next_btn.clicked.connect(self.auto_find_next)
+
+        # 替换对话框 查找下一个 单个替换 全部替换
         self.replace_dialog.find_next_btn.clicked.connect(self.replace_find_next)
         self.replace_dialog.replace_btn.clicked.connect(self.replace_once)
         self.replace_dialog.all_replace_btn.clicked.connect(self.replace_all)
@@ -360,6 +394,27 @@ class PlainTextEdit(QPlainTextEdit):
         ok,font = QFontDialog.getFont()
         if ok:
             self.setFont(font)
+
+    def __init_content_menu_event(self):
+        """初始化上下文菜单"""
+        self.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+        self.customContextMenuRequested.connect(self.show_custome_content_menu)
+
+    def show_custome_content_menu(self,pos: QPoint):
+        """显示自定义上下文菜单
+
+        :param pos: customContextMenuRequested 传出的 QPoint 位置
+        """
+        self.custome_content_menu.exec(pos)
+
+    def reset_content_paste_state(self):
+        """重置上下文菜单粘贴状态
+        """
+        clipbaord_text = GLOBAL_CLIPBOARD().text()
+        if clipbaord_text:
+            self.custome_content_menu.paste_action.setEnabled(True)
+        else:
+            self.custome_content_menu.paste_action.setEnabled(False)
 
     def wheelEvent(self, e: QWheelEvent):
         """鼠标滚动事件"""
