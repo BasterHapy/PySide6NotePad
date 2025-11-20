@@ -1,7 +1,8 @@
 from PySide6.QtWidgets import QMenu
-from PySide6.QtGui import QKeySequence,QDesktopServices,QGuiApplication
+from PySide6.QtGui import QKeySequence,QDesktopServices
 from src.messagebox_about_notepad import MessageAboutNote
 from src.custome_signal_bus import signal_bus
+from src.global_variable import GLOBAL_CLIPBOARD
 
 class FileMenu(QMenu):
     """文件菜单
@@ -68,19 +69,16 @@ class EditMenu(QMenu):
         self.find_previous.setEnabled(False)
         goto.setEnabled(False)
 
-        # 初始化剪贴板
-        self.clipbaord_ = QGuiApplication.clipboard() # 建议来源于 QClipboard
-
     def set_event_bind(self):
         """设置时间绑定"""
         # 设置状态 粘贴
 
-        self.clipbaord_.dataChanged.connect(self.reset_paste_state)
+        GLOBAL_CLIPBOARD().dataChanged.connect(self.reset_paste_state)
 
     def reset_paste_state(self):
         """重新设置粘贴状态
         """
-        clipbaord_text = self.clipbaord_.text()
+        clipbaord_text = GLOBAL_CLIPBOARD().text()
         if clipbaord_text:
             self.paste.setEnabled(True)
         else:
