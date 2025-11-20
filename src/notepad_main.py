@@ -46,7 +46,7 @@ class NotePad(QMainWindow):
         # 标题相关
         ## 更新*
         self.plain_text_edit.modificationChanged.connect(self.update_title)
-
+        
         # 文本编辑相关
         ## 文件菜单
         self.menu_bar.file_menu.new_file.triggered.connect(self.plain_text_edit.show_msg_save)
@@ -68,7 +68,7 @@ class NotePad(QMainWindow):
         signal_bus.has_text.connect(self.menu_bar.edit_menu.find_next.setEnabled)
         signal_bus.has_text.connect(self.menu_bar.edit_menu.find_previous.setEnabled)
 
-
+        ## 行为触发
         self.menu_bar.edit_menu.undo.triggered.connect(self.plain_text_edit.undo)
         self.menu_bar.edit_menu.redo.triggered.connect(self.plain_text_edit.redo)
         self.menu_bar.edit_menu.cut.triggered.connect(self.plain_text_edit.cut)
