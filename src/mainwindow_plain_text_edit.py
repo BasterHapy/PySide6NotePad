@@ -125,7 +125,7 @@ class PlainTextEdit(QPlainTextEdit):
 
     def get_select_text(self):
         """获取选中文本"""
-        return self.textCursor().selectedText()
+        return self.get_textcursor().selectedText()
 
     def bing_search(self):
         """Bing搜索
@@ -283,7 +283,7 @@ class PlainTextEdit(QPlainTextEdit):
             
             # 获取 替换文本
             replace_text = self.replace_dialog.find_replace_ledit.text()
-            self.textCursor().insertText(replace_text)
+            self.get_textcursor().insertText(replace_text)
 
     def __get_all_cursors(self):
         """获取所有文本光标"""
@@ -299,7 +299,7 @@ class PlainTextEdit(QPlainTextEdit):
             doc = self.document()
 
             # 获取文本光标
-            text_cursor = self.textCursor()
+            text_cursor = self.get_textcursor()
 
             # 死循环
             while True:
@@ -331,7 +331,7 @@ class PlainTextEdit(QPlainTextEdit):
     
             # 查看是否勾选 循环状态 => 勾选则 重置光标为Start => 不勾选则弹出消息对话框
             if range_check_staus:
-                self.moveCursor(self.textCursor().MoveOperation.Start)
+                self.moveCursor(self.get_textcursor().MoveOperation.Start)
             else:
                 self.show_find_info_message(search_text)
 
@@ -341,7 +341,7 @@ class PlainTextEdit(QPlainTextEdit):
     
             # 查看是否勾选 循环状态 => 勾选则 重置光标为End => 不勾选则弹出消息对话框
             if self.find_text_dialog.range_check.isChecked():
-                self.moveCursor(self.textCursor().MoveOperation.End)
+                self.moveCursor(self.get_textcursor().MoveOperation.End)
             else:
                 self.show_find_info_message(search_text)
             
@@ -442,6 +442,19 @@ class PlainTextEdit(QPlainTextEdit):
         """设置修改状态"""
         return self.document().setModified(changed)
 
+    def get_textcursor(self):
+        """获取文本光标"""
+        return self.textCursor()
 
+    def get_cursor_postion(self) -> tuple[int,int]:
+        """获取光标位置
+
+        :return: row,colmn
+        """
+        text_cursor = self.get_textcursor()
+        row = text_cursor.blockNumber()+1
+        column = text_cursor.columnNumber()+1
+
+        return row,column
 
 
