@@ -14,7 +14,7 @@ class StatusBar(QStatusBar):
         """设置界面"""
 
         # 初始化 显示开头和结尾 光标位置 缩放比例 编码格式(固定)
-        self.start_end_label = QLabel("从顶部开始查找下一项")
+        self.start_end_label = QLabel("")
         self.cursor_pos_label = QLabel("第1行 第1列")
         self.zoom_in_out_label = QLabel("100%")
         self.encode_label = QLabel("UTF-8")
@@ -45,3 +45,16 @@ class StatusBar(QStatusBar):
         :param column: 光标的列
         """
         self.cursor_pos_label.setText(f"第{row}行,第{column}列")
+    
+    def show_find_status(self,find_status:str):
+        """显示查找状态
+
+        :param find_status: start or end
+        """
+        if find_status == "start":
+            self.start_end_label.setText("从顶部开始查找下一项!") 
+        elif find_status == "end":
+            self.start_end_label.setText("从底部开始查找下一项!")
+        else:
+            self.start_end_label.setText("")
+        
