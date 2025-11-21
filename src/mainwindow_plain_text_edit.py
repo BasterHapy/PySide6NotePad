@@ -328,20 +328,26 @@ class PlainTextEdit(QPlainTextEdit):
     def handel_next_range(self, find_status: bool,range_check_staus: bool,search_text: str):    
         """查找下一个重置光标"""
         if find_status is False:
-    
+
             # 查看是否勾选 循环状态 => 勾选则 重置光标为Start => 不勾选则弹出消息对话框
             if range_check_staus:
                 self.moveCursor(self.get_textcursor().MoveOperation.Start)
+
+                # 发送start信号
+                signal_bus.find_cursor_postion_signal.emit("start")
             else:
                 self.show_find_info_message(search_text)
 
     def handel_previous_range(self, find_status: bool,search_text: str):    
         """查找上一个重置光标"""
         if find_status is False:
-    
+            
             # 查看是否勾选 循环状态 => 勾选则 重置光标为End => 不勾选则弹出消息对话框
             if self.find_text_dialog.range_check.isChecked():
                 self.moveCursor(self.get_textcursor().MoveOperation.End)
+
+                # 发送end 信号
+                signal_bus.find_cursor_postion_signal.emit("end")
             else:
                 self.show_find_info_message(search_text)
             
