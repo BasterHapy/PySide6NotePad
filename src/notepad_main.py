@@ -98,7 +98,7 @@ class NotePad(QMainWindow):
         self.menu_bar.view_menu.show_status_bar.triggered.connect(self.status_bar.show_or_hide)
 
         ## 状态栏 标签
-        self.plain_text_edit.textChanged.connect(self.set_text_cursor)
+        self.plain_text_edit.cursorPositionChanged.connect(self.set_text_cursor)
         signal_bus.find_cursor_postion_signal.connect(self.status_bar.show_find_status)
 
     def set_text_cursor(self):
