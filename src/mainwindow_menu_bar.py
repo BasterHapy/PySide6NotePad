@@ -25,3 +25,6 @@ class MenuBar(QMenuBar):
         self.addMenu(self.format_menu)
         self.addMenu(self.view_menu)
         self.addMenu(self.help_menu)
+
+        # 背景为白色
+        self.setStyleSheet("QMenuBar {background-color: white}")
