@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QMessageBox
-from PySide6.QtGui import QPixmap
+from PySide6.QtGui import QPixmap,QIcon
 
 class MessageAboutNote(QMessageBox):
     """关于记事本对话框
@@ -15,6 +15,7 @@ class MessageAboutNote(QMessageBox):
         """设置界面"""
         # 窗口设置
         self.setWindowTitle("关于记事本")
+        self.setWindowIcon(QIcon(":/resource/ico.png"))
         self.setIconPixmap(QPixmap(":/resource/notepad.png"))
 
         # 设置显示文本
