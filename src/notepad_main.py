@@ -99,6 +99,7 @@ class NotePad(QMainWindow):
 
         ## 状态栏 标签
         self.plain_text_edit.textChanged.connect(self.set_text_cursor)
+        signal_bus.find_cursor_postion_signal.connect(self.status_bar.show_find_status)
 
     def set_text_cursor(self):
         """设置文本光标"""
