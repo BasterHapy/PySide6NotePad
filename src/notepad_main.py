@@ -97,6 +97,14 @@ class NotePad(QMainWindow):
         self.menu_bar.view_menu.zoom_back_action.triggered.connect(self.plain_text_edit.reset_default_font_size)
         self.menu_bar.view_menu.show_status_bar.triggered.connect(self.status_bar.show_or_hide)
 
+        ## 状态栏 标签
+        self.plain_text_edit.textChanged.connect(self.set_text_cursor)
+
+    def set_text_cursor(self):
+        """设置文本光标"""
+        row,column = self.plain_text_edit.get_cursor_postion()
+        self.status_bar.update_cursor_pos(row,column)
+
     def update_title(self,changed: bool):
         """更新标题*
 
