@@ -167,7 +167,7 @@ class HelpMenu(QMenu):
 
     def send_feedback(self):
         """发送反馈"""
-        send_url = "https://gitee.com/BasterHapy/pyside6_notepad_zero_one/issues"
+        send_url = "https://github.com/BasterHapy/PySide6NotePad/issues"
         QDesktopServices.openUrl(send_url)
 
     def get_about_note(self):
