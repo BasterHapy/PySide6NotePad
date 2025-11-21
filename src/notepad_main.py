@@ -1,4 +1,5 @@
 from PySide6.QtWidgets import QMainWindow,QFrame
+from PySide6.QtGui import QIcon
 from src.mainwindow_plain_text_edit import PlainTextEdit
 from src.mainwindow_menu_bar import MenuBar
 from src.mainwindow_status_bar import StatusBar
@@ -19,6 +20,7 @@ class NotePad(QMainWindow):
         """设置界面"""
         # 窗口设置
         self.setWindowTitle(f"{DEFAULT_NAME}{BASE_NAME}")
+        self.setWindowIcon(QIcon(":/resource/ico.png"))
         self.resize(800, 500)
 
         # 菜单栏

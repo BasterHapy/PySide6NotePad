@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="/">
     <file>resource/notepad.png</file>
+    <file>resource/ico.png</file>
   </qresource>
 </RCC>
