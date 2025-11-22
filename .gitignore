@@ -1,5 +1,5 @@
 # 忽略文件
-*.qrc
+resource.qrc
 
 # 忽略文件夹
 pynotepad_venv/
