@@ -1,8 +1,14 @@
 # PySide6 记事本 (PySide6NotePad)
 
+<<<<<<< HEAD
   <img src="./resource/show/windows10Show.jpg" style="width:300px; height:auto; object-fit: cover;">
   <img src="./resource/show/Kubuntu2404X11Show.jpg" style="width:450px; height:auto; object-fit: cover;">
   <img src="./resource/show/fedora43WaylandShow.png" style="width:300px; height:auto; object-fit: cover;">
+=======
+  <img src="./resource/show/windows10Show.jpg" style="width:200px; height:auto; object-fit: cover;">
+  <img src="./resource/show/Kubuntu2404X11Show.jpg" style="width:250px; height:auto; object-fit: cover;">
+  <img src="./resource/show/fedora43WaylandShow.png" style="width:200px; height:auto; object-fit: cover;">
+>>>>>>> b1ef395beb9653e9af3bad0a898b36476f928143
 
  win10,Kubuntu24X11,fedora43 macOS(条件有限不支持)
 
