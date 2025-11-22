@@ -15,7 +15,7 @@ class MessageAboutNote(QMessageBox):
         """设置界面"""
         # 窗口设置
         self.setWindowTitle("关于记事本")
-        self.setWindowIcon(QIcon(":/resource/ico.png"))
+        self.setWindowIcon(QIcon(":/resource/notepad.ico"))
         self.setIconPixmap(QPixmap(":/resource/notepad.png"))
 
         # 设置显示文本

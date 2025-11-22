@@ -20,7 +20,7 @@ class NotePad(QMainWindow):
         """设置界面"""
         # 窗口设置
         self.setWindowTitle(f"{DEFAULT_NAME}{BASE_NAME}")
-        self.setWindowIcon(QIcon(":/resource/ico.png"))
+        self.setWindowIcon(QIcon(":/resource/notepad.ico"))
         self.resize(800, 500)
 
         # 菜单栏
