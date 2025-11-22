@@ -1,16 +1,12 @@
 # PySide6 记事本 (PySide6NotePad)
 
-<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
-
-![Windows 10 工作站](./resource/show/windows10Show.jpg)
-
-![Kubuntu 24.04 X11](./resource/show/Kubuntu2404X11Show.jpg)
-
-![Fedora 43 Wayland](./resource/show/fedora43WaylandShow.png)
-
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 100%;">
+  <img src="./resource/show/windows10Show.jpg" style="width:150px; height:auto; object-fit: cover;">
+  <img src="./resource/show/Kubuntu2404X11Show.jpg" style="width:150px; height:auto; object-fit: cover;">
+  <img src="./resource/show/fedora43WaylandShow.png" style="width:150px; height:auto; object-fit: cover;">
 </div>
 
-macOS(条件有限不支持)
+ win10,Kubuntu24X11,fedora43 macOS(条件有限不支持)
 
 [![Python](https://img.shields.io/badge/python-3.11-blue)](https://www.python.org/)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
@@ -58,15 +54,10 @@ python main.py
 3. 后续拓展win11记事本等同类模仿性开发项目，为新手提供更多贴近系统原生工具的PySide 6实践案例。
  
 > 无论捐赠金额大小，都将是我持续打磨PySide 6模仿学习型开源项目的重要动力。我会定期在项目仓库中公开捐赠收支及使用情况，确保每一份支持都能实实在在地助力PySide 6新手通过模仿快速入门。
- 
 
- <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+  <img src="./donate/images/alipay.jpg" style="width:150px; height:auto; object-fit: cover;">
+  <img src="./donate/images/wechatpay.jpg" style="width:150px; height:auto; object-fit: cover;">
 
-![支付宝](./donate/images/alipay.jpg)
-
-![微信支付](./donate/images/wechatpay.jpg)
-
-</div>
 再次感谢您的信任与支持！
 
 ## 许可证
