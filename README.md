@@ -1,10 +1,8 @@
 # PySide6 记事本 (PySide6NotePad)
 
-<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 100%;">
-  <img src="./resource/show/windows10Show.jpg" style="width:150px; height:auto; object-fit: cover;">
-  <img src="./resource/show/Kubuntu2404X11Show.jpg" style="width:150px; height:auto; object-fit: cover;">
-  <img src="./resource/show/fedora43WaylandShow.png" style="width:150px; height:auto; object-fit: cover;">
-</div>
+  <img src="./resource/show/windows10Show.jpg" style="width:200px; height:auto; object-fit: cover;">
+  <img src="./resource/show/Kubuntu2404X11Show.jpg" style="width:250px; height:auto; object-fit: cover;">
+  <img src="./resource/show/fedora43WaylandShow.png" style="width:200px; height:auto; object-fit: cover;">
 
  win10,Kubuntu24X11,fedora43 macOS(条件有限不支持)
 
