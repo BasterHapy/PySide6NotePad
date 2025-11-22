@@ -1,13 +1,14 @@
 # PySide6 记事本 (PySide6NotePad)
 
-windows 10
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+
 ![Windows 10 工作站](./resource/show/windows10Show.jpg)
 
-fedora43 wayland
+![Kubuntu 24.04 X11](./resource/show/Kubuntu2404X11Show.jpg)
+
 ![Fedora 43 Wayland](./resource/show/fedora43WaylandShow.png)
 
-Kubuntu2404 x11
-![Kubuntu 24.04 X11](./resource/show/Kubuntu2404X11Show.jpg)
+</div>
 
 macOS(条件有限不支持)
 
