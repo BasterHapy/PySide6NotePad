@@ -9,12 +9,6 @@ fedora43 wayland
 Kubuntu2404 x11
 ![Kubuntu 24.04 X11](./resource/show/Kubuntu2404X11Show.jpg)
 
-macOS(条件有限不支持)
-
-[![Python](https://img.shields.io/badge/python-3.11-blue)](https://www.python.org/)
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
-[![PySide6](https://img.shields.io/badge/PySide6-6.10-green.svg)]
-
 一款使用PySide6 实现的win10风格的跨平台记事本应用。
  
 本项目是基于PySide 6技术开发的“模仿性学习”实践案例——初衷就是让刚接触PySide 6的小伙伴，通过模仿Windows系统原生记事本的功能开发，直观掌握PySide 6 GUI开发的核心逻辑、控件使用与交互实现技巧。虽主要聚焦PySide 6，但项目中涉及的多数开发逻辑与PyQt兼容，PyQt学习者也能参考使用。
@@ -57,6 +51,7 @@ python main.py
 3. 后续拓展win11记事本等同类模仿性开发项目，为新手提供更多贴近系统原生工具的PySide 6实践案例。
  
 > 无论捐赠金额大小，都将是我持续打磨PySide 6模仿学习型开源项目的重要动力。我会定期在项目仓库中公开捐赠收支及使用情况，确保每一份支持都能实实在在地助力PySide 6新手通过模仿快速入门。
+<<<<<<< HEAD
  
 
  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
@@ -66,6 +61,12 @@ python main.py
 ![微信支付](./donate/images/wechatpay.jpg)
 
 </div>
+=======
+
+  <img src="./donate/images/alipay.jpg" style="width:150px; height:auto; object-fit: cover;">
+  <img src="./donate/images/wechatpay.jpg" style="width:150px; height:auto; object-fit: cover;">
+
+>>>>>>> d04b26b23e34dcbd29769fa3fbb913f64f3ad0a9
 再次感谢您的信任与支持！
 
 ## 许可证
