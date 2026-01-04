@@ -1,10 +1,10 @@
 from PySide6.QtWidgets import QMainWindow,QFrame
 from PySide6.QtGui import QIcon
-from src.mainwindow_plain_text_edit import PlainTextEdit
-from src.mainwindow_menu_bar import MenuBar
-from src.mainwindow_status_bar import StatusBar
-from src.custome_signal_bus import signal_bus
-from src.global_variable import BASE_NAME,DEFAULT_NAME,STAR                
+from custome_widget.mainwindow_plain_text_edit import PlainTextEdit
+from custome_widget.mainwindow_menu_bar import MenuBar
+from custome_widget.mainwindow_status_bar import StatusBar
+from custome_widget.custome_signal_bus import signal_bus
+from custome_widget.global_variable import BASE_NAME,DEFAULT_NAME,STAR                
 
 class NotePad(QMainWindow):
     """记事本主窗口

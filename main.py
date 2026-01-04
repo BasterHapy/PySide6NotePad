@@ -1,6 +1,6 @@
 import sys
 from PySide6.QtWidgets import QApplication
-from src.notepad_main import NotePad
+from custome_widget import NotePad
 from PySide6.QtGui import QFont
 import resource_rc
 

@@ -1,11 +1,21 @@
-from PySide6.QtWidgets import (QDialog,QVBoxLayout,QHBoxLayout,QLabel,QLineEdit,QPushButton,QCheckBox)
+from PySide6.QtWidgets import (
+    QDialog,
+    QVBoxLayout,
+    QHBoxLayout,
+    QLabel,
+    QLineEdit,
+    QPushButton,
+    QCheckBox,
+)
+
 
 class ReplaceDialog(QDialog):
     """替换对话框
 
     :param QDialog: PySide6 对话框
     """
-    def __init__(self,parent=None):
+
+    def __init__(self, parent=None):
         """构造函数"""
         super().__init__(parent)
         self.setup_ui()
@@ -24,10 +34,10 @@ class ReplaceDialog(QDialog):
         content_hbox = QHBoxLayout()
 
         ### 查找内容 标签以及输入框
-        find_content_label =  QLabel("查找内容(&N):")
+        find_content_label = QLabel("查找内容(&N):")
         self.find_content_ledit = QLineEdit()
 
-        ### 设置伙伴关系 
+        ### 设置伙伴关系
         find_content_label.setBuddy(self.find_content_ledit)
 
         ## 布局添加控件
@@ -38,7 +48,7 @@ class ReplaceDialog(QDialog):
         replace_hbox = QHBoxLayout()
 
         ### 替换为 标签以及输入框
-        find_replace_label =  QLabel("替换为(&P):")
+        find_replace_label = QLabel("替换为(&P):")
         self.find_replace_ledit = QLineEdit()
 
         ### 设置伙伴关系
@@ -89,9 +99,5 @@ class ReplaceDialog(QDialog):
         global_vbox.addLayout(check_boxs_vbox)
 
     def setup_event_bind(self):
-        """设置事件绑定"""        
+        """设置事件绑定"""
         self.cancel_btn.clicked.connect(self.close)
-        
-
-
-

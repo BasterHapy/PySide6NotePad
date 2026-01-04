@@ -1,31 +1,42 @@
-from PySide6.QtWidgets import (QDialog,QLayout,QVBoxLayout,QHBoxLayout,QLabel,QLineEdit,QGroupBox,
-                               QRadioButton,QCheckBox,QPushButton)
+from PySide6.QtWidgets import (
+    QDialog,
+    QLayout,
+    QVBoxLayout,
+    QHBoxLayout,
+    QLabel,
+    QLineEdit,
+    QGroupBox,
+    QRadioButton,
+    QCheckBox,
+    QPushButton,
+)
+
 
 class FindTextDialog(QDialog):
     """查找(文本)对话框
 
     :param QDialog: PySide6 QDialog对话框
     """
-    def __init__(self,parent=None):
+
+    def __init__(self, parent=None):
         """初始化
 
         :param parent: 父窗口, defaults to None
         """
         super().__init__(parent)
         self.setup_ui()
-        self.setup_event_bind()    
+        self.setup_event_bind()
 
     def setup_ui(self):
-        """设置界面
-        """
+        """设置界面"""
         # 窗口标题设置 wayland 不支持 仅设置窗口关闭按钮
         self.setWindowTitle("查找")
 
         # 窗口按钮只显示 关闭 win11默认 x11 wayland 不支持
-        
+
         # 主布局使用垂直布局
         global_vbox = QVBoxLayout(self)
-        
+
         # 固定大小 x11 windows 支持 wayland 奇怪
         global_vbox.setSizeConstraint(QLayout.SizeConstraint.SetFixedSize)
 
@@ -43,7 +54,7 @@ class FindTextDialog(QDialog):
         direct_gb = QGroupBox(title="方向")
 
         gb_vbox = QVBoxLayout(direct_gb)
-        
+
         self.up_rbtn = QRadioButton("向上(&U)")
         self.down_rbtn = QRadioButton("向下(&D)")
 
@@ -69,16 +80,6 @@ class FindTextDialog(QDialog):
         global_vbox.addWidget(self.cancel_btn)
 
     def setup_event_bind(self):
-        """设置事件绑定
-        """
+        """设置事件绑定"""
         # 按钮选中绑定事件
         self.cancel_btn.clicked.connect(self.close)
-            
-
-            
-        
-
-
-
-        
-        

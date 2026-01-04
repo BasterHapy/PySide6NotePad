@@ -1,8 +1,8 @@
 from PySide6.QtWidgets import QMenu
 from PySide6.QtGui import QKeySequence,QDesktopServices
-from src.messagebox_about_notepad import MessageAboutNote
-from src.custome_signal_bus import signal_bus
-from src.global_variable import GLOBAL_CLIPBOARD
+from custome_widget.messagebox_about_notepad import MessageAboutNote
+from custome_widget.custome_signal_bus import signal_bus
+from custome_widget.global_variable import GLOBAL_CLIPBOARD
 
 class FileMenu(QMenu):
     """文件菜单

@@ -1,6 +1,5 @@
 from PySide6.QtWidgets import QMenuBar
-from src.menubar_menu import FileMenu,EditMenu,FormatMenu,ViewMenu,HelpMenu
-
+from custome_widget.menubar_menu import FileMenu,EditMenu,FormatMenu,ViewMenu,HelpMenu
 class MenuBar(QMenuBar):
     """菜单栏
 

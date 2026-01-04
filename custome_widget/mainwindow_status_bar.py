@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QStatusBar,QLabel
-from src.custome_signal_bus import signal_bus
+from custome_widget.custome_signal_bus import signal_bus
 
 class StatusBar(QStatusBar):
     """状态栏

@@ -2,12 +2,12 @@ from PySide6.QtWidgets import QPlainTextEdit,QFontDialog,QFileDialog,QMessageBox
 from PySide6.QtGui import QFont,QWheelEvent,QDesktopServices,QTextDocument
 from PySide6.QtPrintSupport import QPrintDialog,QPrinter
 from PySide6.QtCore import Qt,QDateTime,QPoint
-from src.messagebox_save_file import MessageSaveFile
-from src.custome_signal_bus import signal_bus
-from src.global_variable import HOME_PATH,GLOBAL_CLIPBOARD
-from src.custome_find_dialog import FindTextDialog
-from src.custome_replace_dialog import ReplaceDialog
-from src.custome_content_menu import ContentMenu
+from custome_widget.messagebox_save_file import MessageSaveFile
+from custome_widget.custome_signal_bus import signal_bus
+from custome_widget.global_variable import HOME_PATH,GLOBAL_CLIPBOARD
+from custome_widget.custome_find_dialog import FindTextDialog
+from custome_widget.custome_replace_dialog import ReplaceDialog
+from custome_widget.custome_content_menu import ContentMenu
 
 class PlainTextEdit(QPlainTextEdit):
     """纯文本编辑
